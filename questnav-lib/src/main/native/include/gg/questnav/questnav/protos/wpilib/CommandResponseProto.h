@@ -18,6 +18,6 @@ struct wpi::Protobuf<questnav::CommandResponseStruct> {
   using InputStream = wpi::ProtoInputStream<questnav::CommandResponseStruct>;
   using OutputStream = wpi::ProtoOutputStream<questnav::CommandResponseStruct>;
 
-  static std::optional<questnav::CommandResponseStruct> Unpack(InputStream& stream);
-  static bool Pack(OutputStream& stream, const questnav::CommandResponseStruct& value);
+  static std::optional<questnav_protos_commands_ProtobufQuestNavCommandResponse> Unpack(InputStream& stream);
+  static bool Pack(OutputStream& stream, const questnav_protos_commands_ProtobufQuestNavCommandResponse& value);
 };

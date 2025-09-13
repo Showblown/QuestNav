@@ -9,7 +9,6 @@
 package gg.questnav.questnav;
 
 import static edu.wpi.first.units.Units.*;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.proto.Pose2dProto;
 import edu.wpi.first.math.proto.Geometry2D;

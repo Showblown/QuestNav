@@ -10,8 +10,12 @@
 
 #include "gg/questnav/questnav/protos/wpilib/FrameDataProto.h"
 
+  using InputStream = wpi::ProtoInputStream<questnav::FrameDataStruct>;
+  using OutputStream = wpi::ProtoOutputStream<questnav::FrameDataStruct>;
+
+template <>
 std::optional<questnav_protos_data_ProtobufQuestNavFrameData >
-wpi::Protobuf<questnav_protos_data_ProtobufQuestNavFrameData >::Unpack(InputStream& stream) {
+wpi::Protobuf<questnav::FrameDataStruct>::Unpack(InputStream& stream) {
   questnav_protos_data_ProtobufQuestNavFrameData  msg;
   if (!stream.Decode(msg)) {
     return std::nullopt;
@@ -19,7 +23,8 @@ wpi::Protobuf<questnav_protos_data_ProtobufQuestNavFrameData >::Unpack(InputStre
   return msg;
 }
 
-bool wpi::Protobuf<questnav_protos_data_ProtobufQuestNavFrameData >::Pack(
-    OutputStream& stream, const questnav_protos_data_ProtobufQuestNavFrameData & value) {
+template<>
+bool wpi::Protobuf<questnav::FrameDataStruct>::Pack(
+    OutputStream& stream, const questnav_protos_data_ProtobufQuestNavFrameData& value) {
   return stream.Encode(value);
 }

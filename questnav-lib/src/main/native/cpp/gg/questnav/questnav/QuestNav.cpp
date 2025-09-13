@@ -8,6 +8,7 @@
 */
 #include "gg/questnav/questnav/QuestNav.h"
 #include <frc/DriverStation.h>
+#include <frc/Errors.h>
 #include <fmt/core.h>
 
 namespace questnav {
@@ -104,11 +105,11 @@ frc::Pose2d QuestNav::GetPose() {
     auto latest_frame_data = frame_data_.Get();
     if (latest_frame_data != nullptr) {
         const auto& pose_proto = latest_frame_data.pose2d;
-        return frc::Pose2d{
+        return frc::Pose2d(
             units::meter_t{pose_proto.x},
             units::meter_t{pose_proto.y},
-            frc::Rotation2d{units::radian_t{pose_proto.rotation.radians}}
-        };
+            frc::Rotation2d(units::radian_t{pose_proto.rotation.radians})
+        );
     }
     return frc::Pose2d{}; // Return zero pose to indicate no data available
 }
@@ -125,7 +126,7 @@ void QuestNav::CommandPeriodic() {
 
     if (last_processed_response_id_ != latest_command_response.command_id) {
         if (!latest_command_response.success) {
-            frc::DriverStation::ReportError(
+            FRC_ReportError(1,
                 fmt::format("QuestNav command failed!\n{}",
                            latest_command_response.error_message));
         }

@@ -11,7 +11,11 @@
 #include "gg/questnav/questnav/protos/wpilib/CommandProto.h"
 #include "gg/questnav/questnav/struct/CommandStruct.h"
 
-std::optional<questnav::CommandStruct>
+  using InputStream = wpi::ProtoInputStream<questnav::CommandStruct>;
+  using OutputStream = wpi::ProtoOutputStream<questnav::CommandStruct>;
+
+template<>
+std::optional<questnav_protos_commands_ProtobufQuestNavCommand>
 wpi::Protobuf<questnav::CommandStruct>::Unpack(InputStream& stream) {
   wpi::UnpackCallback<questnav::CommandStruct::CommandType> typ;
 
@@ -26,6 +30,7 @@ wpi::Protobuf<questnav::CommandStruct>::Unpack(InputStream& stream) {
   return msg;
 }
 
+template <>
 bool wpi::Protobuf<questnav_protos_commands_ProtobufQuestNavCommand>::Pack(
     OutputStream& stream, const questnav_protos_commands_ProtobufQuestNavCommand& value) {
   return stream.Encode(value);

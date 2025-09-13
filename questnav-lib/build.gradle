@@ -47,6 +47,8 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-core:2.15.2"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.15.2"
     implementation 'edu.wpi.first.thirdparty.frc2025.opencv:opencv-java:4.10.0-2'
+    implementation 'com.google.protobuf:protobuf-java:3.21.12' // Replace with the desired version
+    //implementation 'com.google.protobuf:protobuf-lite:3.21.12' // Replace with the desired version
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -105,8 +107,14 @@ model {
                     }
                     exportedHeaders {
                         srcDirs 'src/main/native/include'
+                        srcDirs 'src/main/native/cpp/gg/questnav/questnav/protos/generated'
+                        srcDirs 'C:/protobuf/include' // Add Protobuf include path
                     }
                 }
+            }
+            binaries.all {
+                cppCompiler.args.add('-IC:/protobuf/include') // Include Protobuf headers
+                linker.args.add('-LC:/protobuf/lib')          // Link Protobuf libraries
             }
             nativeUtils.useRequiredLibrary(it, 'wpilib_shared')
         }
